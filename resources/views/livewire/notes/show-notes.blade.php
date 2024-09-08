@@ -49,11 +49,15 @@ new class extends Component {
         <x-button class="mb-12" primary icon-right="plus" class="mt-6" href="{{route('notes.create')}}" wire:navigate>Create note</x-button>
         <div class="grid grid-cols-2 gap-4">
             @foreach ($notes as $note)
-                <x-card wire:key="{{ $note->id }}">
+                <x-card class="border-2 border-red-300 bg-red-300" wire:key="{{ $note->id }}">
                 <div class="flex justify-between">
                     <div>
+                        @can('update', $note)
                         <a href="{{ route('notes.edit', $note) }}" wire:navigate
                             class="text-xl font-bold hover underline hover text-blue-500">{{$note->title}}</a>
+                        @else    
+                        <p class="text-xl font-bold text-gray-500">{{$note->title}}</p>
+                        @endcan
                         <p class="size-xs mt-2">{{ Str::limit($note->body, 50 )}}</p>
                     </div>
                     <div class="text-xs text-gray-100">{{ \Carbon\Carbon::parse($note->send_date)->format('M-d-Y')}}</div>
@@ -61,7 +65,7 @@ new class extends Component {
                 <div class="flex items-end justify-between mt-4 space-x-1">
                         <p class="text-xs">Recipient: <span class="font-semibold">{{ $note->recipient }}</span></p>
                         <div>
-                            <x-button.circle icon="eye" href="{{ route('notes.view', '$note') }}"></x-button.circle>
+                            <x-button.circle icon="eye" href="{{ route('notes.view', $note) }}"></x-button.circle>
                             <x-button.circle icon="trash" wire:click="delete('{{$note->id}}')"></x-button.circle>
                         </div>
                 </div>

@@ -20,11 +20,8 @@
             @endif
 
         <div class="p-6 mx-auto max-w-7xl lg:p-8 text-center justify-center items-center flex flex-col space-y-4">
-            <div>
                 <x-application-logo class="w-24 h-24 fill-current text-primary" />
                 <x-button primary xl href="{{route('register') }}">Get Started</x-button>
-            </div>
         </div>
-        <div>
     </body>
 </html>
